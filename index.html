@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script defer
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+    <script defer src="./add.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button id="add__sticker"> ADD</button>
+        </div>
+        <ul id="list__stickers"></ul>
+    </div>
+    <script type="text/template" id="stickerItemTemplate">
+        <li class="sticker-item" data-sticker-id="{{id}}">
+            <span id="delete__sticker">✘</span>
+            <textarea id="newTextareaSticker" name="sticker" cols="30" rows="10"></textarea>
+        </li>
+      </script>
+</body>
+</html>
