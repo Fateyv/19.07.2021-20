@@ -1,0 +1,16 @@
+.header {
+    background-color: bisque;
+    border: 1px solid black;
+}
+
+#add__sticker {
+    padding: 10px;
+    background-color: red;
+}
+
+#list__stickers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
