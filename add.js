@@ -2,32 +2,29 @@ const STICKER_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/stickers/';
 
 const template = document.getElementById('stickerItemTemplate').innerHTML;
 const stickerList = document.getElementById('list__stickers');
-const newTextareaStickerEl = document.getElementById('newTextareaSticker');
+const newTextareaStickerEl = document.getElementsByClassName('newTextareaSticker');
 const addStickerEl = document.getElementById('add__sticker');
-const deleteStickerEl = document.getElementById('delete__sticker');
-
-
 let stickersArr = [];
 
-// stickerList.addEventListener('focusout', outSticker)
+// stickerList.addEventListener('focusout', onEditStickerFocusout);
 addStickerEl.addEventListener('click', onAddStickerClick);
-// stickerList.addEventListener('click', onDeleteStickerClick);
+stickerList.addEventListener('click', onDeleteStickerClick);
 
 function onAddStickerClick(event) {
     event.preventDefault();
     submitForm();
 }
 
-// function onDeleteStickerClick(event) {
-//     const stickerId = getStickerId(event.target);
-//     if (event.target.classList.contains('delete__btn')) {
-//         deleteSticker(stickerId);
-//     }
-// }
+function onDeleteStickerClick(event) {
+    const stickerId = getStickerId(event.target);
+    if (event.target.classList.contains('delete__btn')) {
+        deleteSticker(stickerId);
+    }
+}
 
-// function getContactId(el) {
-//     return el.closest('.sticker__item').dataset.stickerId;
-// }
+function getStickerId(el) {
+    return el.closest('.sticker__item').dataset.stickerId;
+}
 
 init();
 
@@ -81,19 +78,28 @@ function addSticker(sticker) {
     renderList(stickersArr)
 }
 
-// function deleteSticker(id) {
+function deleteSticker(id) {
+    fetch(STICKER_URL + id, {
+        method: 'DELETE',
+    }).then(() => {
+        stickersArr = stickersArr.filter((item) => (item.id !== id));
+        renderList(stickersArr)});
+}
+
+function onEditStickerFocusout(event) {
+    const stickerId = getStickerId(event.target);
+    saveSticker(stickerId)
+}
+
+// function saveSticker(id) {
+//     const sticker = stickersArr.find((item) => item.id === id);
+
+
 //     fetch(STICKER_URL + id, {
-//         method: 'DELETE',
-//     }).then(() => {
-//         stickersArr = stickersArr.filter((item) => (item.id !== id));
-//         renderList(stickersArr)});
-// }
-
-// function outSticker() {
-//     const changeSticker = getChangeSticker()
-//     // saveSticker(changeSticker)
-// }
-
-// function getChangeSticker() {
-//     return { description: newTextareaStickerEl.value }
+//     method: 'PUT',
+//     body: JSON.stringify(sticker),
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   }).then(() => renderList(stickersArr));
 // }

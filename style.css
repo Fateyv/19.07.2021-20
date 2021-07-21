@@ -4,13 +4,12 @@
 }
 
 #add__sticker {
-    padding: 10px;
     background-color: red;
 }
 
 #list__stickers {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 2px;
     list-style: none;
 }
