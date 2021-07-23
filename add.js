@@ -1,14 +1,14 @@
 const STICKER_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/stickers/';
 
-const template = document.getElementById('stickerItemTemplate').innerHTML;
+const template = $('#stickerItemTemplate').html();
 const stickerList = document.getElementById('list__stickers');
-const newTextareaStickerEl = document.getElementsByClassName('newTextareaSticker');
+const newTextareaStickerEl = $('.newTextareaSticker');
 const addStickerEl = document.getElementById('add__sticker');
+
 let stickersArr = [];
 
-// stickerList.addEventListener('focusout', onEditStickerFocusout);
-addStickerEl.addEventListener('click', onAddStickerClick);
-stickerList.addEventListener('click', onDeleteStickerClick);
+$(addStickerEl).click(onAddStickerClick);
+$(stickerList).click(onDeleteStickerClick).focusout(onEditStickerFocusout)
 
 function onAddStickerClick(event) {
     event.preventDefault();
@@ -17,7 +17,7 @@ function onAddStickerClick(event) {
 
 function onDeleteStickerClick(event) {
     const stickerId = getStickerId(event.target);
-    if (event.target.classList.contains('delete__btn')) {
+    if ($(event.target).hasClass('delete__btn')) {
         deleteSticker(stickerId);
     }
 }
@@ -44,7 +44,7 @@ function setStickers(data) {
 }
 
 function renderList(list){
-    stickerList.innerHTML = list.map(getItemHtml).join('');
+    $(stickerList).html(list.map(getItemHtml).join(''));
 }
 
 function getItemHtml({description, id}) {
@@ -91,15 +91,21 @@ function onEditStickerFocusout(event) {
     saveSticker(stickerId)
 }
 
-// function saveSticker(id) {
-//     const sticker = stickersArr.find((item) => item.id === id);
+function saveSticker(id) {
+    const element = $(`[data-sticker-id=${id}] .newTextareaSticker`);
+    const data = $(element).val();
 
-
-//     fetch(STICKER_URL + id, {
-//     method: 'PUT',
-//     body: JSON.stringify(sticker),
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   }).then(() => renderList(stickersArr));
-// }
+    fetch(STICKER_URL + id, {
+    method: 'PUT',
+    body: JSON.stringify({ description: data }),
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    })
+    .then(resp => resp.json())
+    .then((data) => {
+        const sticker = stickersArr.find(sticker => sticker.id === id);
+        sticker.description = data.description;
+        renderList(stickersArr)
+    });
+}

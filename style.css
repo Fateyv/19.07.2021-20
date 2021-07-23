@@ -1,15 +1,41 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background: rgb(243, 188, 188);
+}
+
 .header {
-    background-color: bisque;
+    background-color: #ffe4c4;
     border: 1px solid black;
+    display: flex;
+    justify-content: flex-end;
+    text-transform: uppercase;
+}
+
+.title {
+    padding-right: 500px;
 }
 
 #add__sticker {
     background-color: red;
+    padding: 20px;
+    
 }
 
 #list__stickers {
     display: flex;
     flex-wrap: wrap;
-    gap: 2px;
+    gap: 20px;
     list-style: none;
+}
+
+li {
+    display: flex;
+}
+
+.delete__btn {
+    color: red;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 30px;
 }
