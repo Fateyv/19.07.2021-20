@@ -2,7 +2,6 @@ const STICKER_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/stickers/';
 
 const template = $('#stickerItemTemplate').html();
 const stickerList = document.getElementById('list__stickers');
-const newTextareaStickerEl = $('.newTextareaSticker');
 const addStickerEl = document.getElementById('add__sticker');
 
 let stickersArr = [];
